@@ -50,14 +50,19 @@ function List() {
   );
 }
 
-function Search() {
+const Search = () => {
+  // do something in between
+  const handleChange = (event) => {
+    console.log(event.target.value);
+  };
   return (
     <div>
       <label htmlFor="search"> Search: </label>
-      <input id="search" type="text"></input>
+      <input id="search" type="text" onChange={handleChange}></input>
     </div>
   );
-}
+};
+
 function App() {
   // let otherList = list.filter((item) => item.objectID !== 1); THESE ARE JUST CURIOSITIES
   // console.log(list);
@@ -67,8 +72,8 @@ function App() {
       <h1>My hacker stories</h1>
       <Search />
       <hr />
-      <List /> /* this is a comment in jsx */
-      <List /> /* this is an instance of the previously defined List component*/
+      <List />
+      <List />
     </div>
   );
 }
