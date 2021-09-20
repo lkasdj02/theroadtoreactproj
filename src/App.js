@@ -23,9 +23,22 @@ const list = [
 const name = "react";
 
 function List() {
+  let myList = [
+    ...list,
+    {
+      title: "Other",
+      url: "https://other.org/",
+      author: "me",
+      num_comments: 0,
+      points: 5,
+      objectID: 2,
+    },
+  ];
+  console.log(list);
+  console.log(myList);
   return (
     <ul>
-      {list.map((item) => (
+      {myList.map((item) => (
         <li key={item?.objectID}>
           <span>{item?.title}</span>
           <span>{item?.author}</span>
@@ -46,7 +59,7 @@ function Search() {
   );
 }
 function App() {
-  // let otherList = list.filter((item) => item.objectID !== 1);
+  // let otherList = list.filter((item) => item.objectID !== 1); THESE ARE JUST CURIOSITIES
   // console.log(list);
   // console.log(otherList);
   return (
@@ -54,7 +67,8 @@ function App() {
       <h1>My hacker stories</h1>
       <Search />
       <hr />
-      <List />
+      <List /> /* this is a comment in jsx */
+      <List /> /* this is an instance of the previously defined List component*/
     </div>
   );
 }
