@@ -1,9 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
-
+import { useState } from "react";
 const name = "react";
 
 function List(props) {
+  console.log("list renders");
   // let myList = [
   //   ...list,
   //   {
@@ -37,13 +38,20 @@ const Item = ({ item }) => (
 
 const Search = () => {
   // do something in between
+  console.log("search renders");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const handleChange = (event) => {
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
+    // console.log(event.target.value);
   };
   return (
     <div>
       <label htmlFor="search"> Search: </label>
       <input id="search" type="text" onChange={handleChange}></input>
+      <p>
+        Searching for <strong>{searchTerm}</strong>
+      </p>
     </div>
   );
 };
@@ -52,6 +60,7 @@ const App = () => {
   // let otherList = list.filter((item) => item.objectID !== 1); THESE ARE JUST CURIOSITIES
   // console.log(list);
   // console.log(otherList);
+  console.log("app renders");
   const stories = [
     {
       title: "React",
