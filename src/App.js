@@ -36,7 +36,7 @@ const Item = ({ item }) => (
   </ul>
 );
 
-const Search = () => {
+const Search = (props) => {
   // do something in between
   console.log("search renders");
   const [searchTerm, setSearchTerm] = useState("");
@@ -44,11 +44,20 @@ const Search = () => {
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
     // console.log(event.target.value);
+    props.onSearch(event);
   };
+
+  const handleSubmitSearch = (event) => {
+    event.preventDefault();
+    let value = searchTerm;
+    props.onclick(event, value);
+  };
+
   return (
     <div>
       <label htmlFor="search"> Search: </label>
-      <input id="search" type="text" onChange={handleChange}></input>
+      <input id="search" type="text" onChange={props.onSearch}></input>
+      <button onClick={handleSubmitSearch}> CLICK ME</button>
       <p>
         Searching for <strong>{searchTerm}</strong>
       </p>
@@ -80,12 +89,34 @@ const App = () => {
     },
   ];
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const searchedStories = stories.filter((story) =>
+    story.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  console.log(searchedStories);
+
+  const handleClick = (event, value) => {
+    let searchResult = stories.filter((item) => item.title === value);
+    console.log(searchResult);
+    if (searchResult.length === 0) {
+      console.log("nothing was found");
+    } else {
+      console.log(searchResult[0].title);
+    }
+  };
+
   return (
     <div className="App">
       <h1>My hacker stories</h1>
-      <Search />
+      <Search onSearch={handleSearch} onclick={handleClick} />
       <hr />
-      <List list={stories} />
+      <List list={searchedStories} />
     </div>
   );
 };
