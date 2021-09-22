@@ -56,7 +56,12 @@ const Search = (props) => {
   return (
     <div>
       <label htmlFor="search"> Search: </label>
-      <input id="search" type="text" onChange={props.onSearch}></input>
+      <input
+        id="search"
+        type="text"
+        onChange={props.onSearch}
+        value={props.search}
+      ></input>
       <button onClick={handleSubmitSearch}> CLICK ME</button>
       <p>
         Searching for <strong>{searchTerm}</strong>
@@ -89,7 +94,7 @@ const App = () => {
     },
   ];
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("React");
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -114,7 +119,11 @@ const App = () => {
   return (
     <div className="App">
       <h1>My hacker stories</h1>
-      <Search onSearch={handleSearch} onclick={handleClick} />
+      <Search
+        search={searchTerm}
+        onSearch={handleSearch}
+        onclick={handleClick}
+      />
       <hr />
       <List list={searchedStories} />
     </div>
