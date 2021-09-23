@@ -3,7 +3,7 @@ import "./App.css";
 import { useState } from "react";
 const name = "react";
 
-function List(props) {
+function List({ list }) {
   console.log("list renders");
   // let myList = [
   //   ...list,
@@ -18,7 +18,7 @@ function List(props) {
   // ];
   return (
     <ul>
-      {props.list.map((item) => (
+      {list.map((item) => (
         <Item key={item.objectID} item={item} /> // DO NOT USE THE INDEX OF THE MAP FUNCTION FOR THE KEY ATTRIBUTE.
       ))}
     </ul>
@@ -36,32 +36,28 @@ const Item = ({ item }) => (
   </ul>
 );
 
-const Search = (props) => {
+const Search = ({ search, onSearch, onclick }) => {
   // do something in between
-  console.log("search renders");
+  // console.log("search renders");
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
     // console.log(event.target.value);
-    props.onSearch(event);
+    onSearch(event);
   };
+
+  // these lines wer written in order to explain both basic event handlers and also callback handlers.
 
   const handleSubmitSearch = (event) => {
     event.preventDefault();
     let value = searchTerm;
-    props.onclick(event, value);
+    onclick(event, value);
   };
-
   return (
     <div>
       <label htmlFor="search"> Search: </label>
-      <input
-        id="search"
-        type="text"
-        onChange={props.onSearch}
-        value={props.search}
-      ></input>
+      <input id="search" type="text" value={search} onChange={onSearch}></input>
       <button onClick={handleSubmitSearch}> CLICK ME</button>
       <p>
         Searching for <strong>{searchTerm}</strong>
