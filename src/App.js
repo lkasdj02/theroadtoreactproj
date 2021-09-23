@@ -4,7 +4,7 @@ import { useState } from "react";
 const name = "react";
 
 function List({ list }) {
-  console.log("list renders");
+  console.log("list renders"); // debug purpouses
   // let myList = [
   //   ...list,
   //   {
@@ -18,22 +18,22 @@ function List({ list }) {
   // ];
   return (
     <ul>
-      {list.map((item) => (
-        <Item key={item.objectID} item={item} /> // DO NOT USE THE INDEX OF THE MAP FUNCTION FOR THE KEY ATTRIBUTE.
+      {list.map(({ objectID, ...item }) => (
+        <Item key={objectID} {...item} /> // DO NOT USE THE INDEX OF THE MAP FUNCTION FOR THE KEY ATTRIBUTE.
       ))}
     </ul>
   );
 }
 
-const Item = ({ item }) => (
-  <ul>
-    <li key={item?.objectID}>
-      <span>{item?.title}</span> <br />
-      <span>{item?.author}</span> <br />
-      <span>{item?.points}</span> <br />
-      <span>{item?.num_comments}</span>
-    </li>
-  </ul>
+const Item = ({ title, url, author, num_comments, points }) => (
+  <li>
+    <span>
+      <a href={url}> title </a>
+    </span>
+    <span>{author}</span> <br />
+    <span>{num_comments}</span>
+    <span>{points}</span> <br />
+  </li>
 );
 
 const Search = ({ search, onSearch, onclick }) => {
